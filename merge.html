@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge PDFs - PDF Toolkit</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+    <nav class="nav">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="index.html">Home</a></li>
+            <li class="nav-item"><a href="merge.html">Merge PDFs</a></li>
+            <li class="nav-item"><a href="split.html">Split PDF</a></li>
+            <li class="nav-item"><a href="convert.html">Convert Files</a></li>
+            <li class="nav-item"><a href="rotate.html">Rotate PDF</a></li>
+            <li class="nav-item"><a href="compress.html">Compress PDF</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <main class="main-content">
+            <section class="tool-section">
+                <h1 class="tool-title">Merge PDFs</h1>
+                <div class="drop-zone" onclick="document.getElementById('file-input').click()">
+                    <p>Drag and drop PDF files here or click to select files</p>
+                    <input type="file" id="file-input" multiple accept=".pdf" style="display: none">
+                </div>
+
+                <div class="file-list"></div>
+
+                <div class="messages"></div>
+
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+
+                <div class="spinner"></div>
+
+                <button id="merge-btn" class="btn">Merge PDFs</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

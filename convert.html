@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert Files - PDF Toolkit</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- PDF-LIB -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <!-- SheetJS -->
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <!-- DocxJS -->
+    <script src="https://unpkg.com/docx@8.2.3/build/index.min.js"></script>
+</head>
+<body>
+    <nav class="nav">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="index.html">Home</a></li>
+            <li class="nav-item"><a href="merge.html">Merge PDFs</a></li>
+            <li class="nav-item"><a href="split.html">Split PDF</a></li>
+            <li class="nav-item"><a href="convert.html">Convert Files</a></li>
+            <li class="nav-item"><a href="rotate.html">Rotate PDF</a></li>
+            <li class="nav-item"><a href="compress.html">Compress PDF</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <main class="main-content">
+            <section class="tool-section">
+                <h1 class="tool-title">Convert Files</h1>
+                
+                <div class="options-section">
+                    <div class="option-group">
+                        <label for="conversion-type">Select Conversion:</label>
+                        <select id="conversion-type">
+                            <option value="pdf-to-image">PDF to Image</option>
+                            <option value="image-to-pdf">Image to PDF</option>
+                            <option value="pdf-to-word">PDF to Word</option>
+                            <option value="word-to-pdf">Word to PDF</option>
+                            <option value="pdf-to-excel">PDF to Excel</option>
+                            <option value="excel-to-pdf">Excel to PDF</option>
+                            <option value="pdf-to-ppt">PDF to PowerPoint</option>
+                            <option value="ppt-to-pdf">PowerPoint to PDF</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="drop-zone" onclick="document.getElementById('file-input').click()">
+                    <p>Drag and drop files here or click to select files</p>
+                    <input type="file" id="file-input" style="display: none">
+                </div>
+
+                <div class="file-list"></div>
+
+                <div class="messages"></div>
+
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+
+                <div class="spinner"></div>
+
+                <button id="convert-btn" class="btn">Convert Files</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Update accepted file types based on conversion type
+        document.getElementById('conversion-type').addEventListener('change', function() {
+            const fileInput = document.getElementById('file-input');
+            const conversionType = this.value;
+            
+            switch(conversionType) {
+                case 'pdf-to-image':
+                    fileInput.accept = '.pdf';
+                    break;
+                case 'image-to-pdf':
+                    fileInput.accept = '.jpg,.jpeg,.png';
+                    break;
+                case 'pdf-to-word':
+                case 'pdf-to-excel':
+                case 'pdf-to-ppt':
+                    fileInput.accept = '.pdf';
+                    break;
+                case 'word-to-pdf':
+                    fileInput.accept = '.docx,.doc';
+                    break;
+                case 'excel-to-pdf':
+                    fileInput.accept = '.xlsx,.xls';
+                    break;
+                case 'ppt-to-pdf':
+                    fileInput.accept = '.pptx,.ppt';
+                    break;
+            }
+        });
+
+        // Initialize with default value
+        document.getElementById('conversion-type').dispatchEvent(new Event('change'));
+    </script>
+</body>
+</html>
