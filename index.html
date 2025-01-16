@@ -3,82 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Toolkit - Your All-in-One PDF Solution</title>
+    <meta name="description" content="Free online PDF tools: compress, merge, split, convert and rotate PDFs. No installation needed, 100% secure browser-based PDF manipulation tools.">
+    <meta name="keywords" content="PDF tools, compress PDF, merge PDF, split PDF, convert PDF, rotate PDF, online PDF editor, free PDF tools">
+    <meta name="author" content="Shriram Mange">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="PdfDroid - Free Online PDF Tools">
+    <meta property="og:description" content="Free online PDF tools: compress, merge, split, convert and rotate PDFs. No installation needed, 100% secure browser-based tools.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="path/to/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PdfDroid - Free Online PDF Tools">
+    <meta name="twitter:description" content="Free online PDF tools: compress, merge, split, convert and rotate PDFs. No installation needed, 100% secure.">
+    <title>PdfDroid - Free Online PDF Tools | Compress, Merge, Split, Convert PDFs</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" href="favicon.png">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PdfDroid",
+        "applicationCategory": "PDF Tools",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": "Free online PDF tools for compressing, merging, splitting, converting and rotating PDF files. No installation needed.",
+        "featureList": [
+            "PDF Compression",
+            "PDF Merging",
+            "PDF Splitting",
+            "PDF Conversion",
+            "PDF Rotation"
+        ]
+    }
+    </script>
 </head>
 <body>
-    <nav class="nav">
-        <button class="hamburger" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <ul class="nav-list">
-            <li class="nav-item"><a href="index.html" class="active">Home</a></li>
-            <li class="nav-item"><a href="merge.html">Merge PDFs</a></li>
-            <li class="nav-item"><a href="split.html">Split PDF</a></li>
-            <li class="nav-item"><a href="convert.html">Convert Files</a></li>
-            <li class="nav-item"><a href="rotate.html">Rotate PDF</a></li>
-            <li class="nav-item"><a href="compress.html">Compress PDF</a></li>
-        </ul>
-    </nav>
+    <header>
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-list">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-list" id="nav-list">
+                <li class="nav-item"><a href="index.html" aria-current="page">Home</a></li>
+                <li class="nav-item"><a href="merge.html">Merge PDFs</a></li>
+                <li class="nav-item"><a href="split.html">Split PDF</a></li>
+                <li class="nav-item"><a href="convert.html">Convert Files</a></li>
+                <li class="nav-item"><a href="rotate.html">Rotate PDF</a></li>
+                <li class="nav-item"><a href="compress.html">Compress PDF</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div class="hero">
-        <h1>Your Complete PDF Toolkit</h1>
-        <p>Fast, secure, and free PDF tools right in your browser. No installation needed.</p>
-    </div>
+    <main>
+        <section class="hero" role="banner">
+            <h1>Your Complete PDF Toolkit</h1>
+            <p>Fast, secure, and free PDF tools right in your browser. No installation needed.</p>
+        </section>
 
-    <div class="container">
-        <main class="main-content">
-            <section class="features-grid">
-                <div class="feature-card" onclick="window.location.href='merge.html'">
-                    <i class="fas fa-object-group icon"></i>
-                    <h3>Merge PDFs</h3>
+        <div class="container">
+            <section class="features-grid" aria-label="PDF Tools Features">
+                <article class="feature-card" onclick="window.location.href='merge.html'" role="link" tabindex="0">
+                    <i class="fas fa-object-group icon" aria-hidden="true"></i>
+                    <h2>Merge PDFs</h2>
                     <p>Combine multiple PDF files into a single document with ease. Perfect for creating comprehensive reports or documentation.</p>
-                </div>
+                </article>
 
-                <div class="feature-card" onclick="window.location.href='split.html'">
-                    <i class="fas fa-cut icon"></i>
-                    <h3>Split PDF</h3>
+                <article class="feature-card" onclick="window.location.href='split.html'" role="link" tabindex="0">
+                    <i class="fas fa-cut icon" aria-hidden="true"></i>
+                    <h2>Split PDF</h2>
                     <p>Extract specific pages or split large PDFs into smaller documents. Ideal for sharing specific sections.</p>
-                </div>
+                </article>
 
-                <div class="feature-card" onclick="window.location.href='convert.html'">
-                    <i class="fas fa-exchange-alt icon"></i>
-                    <h3>Convert Files</h3>
+                <article class="feature-card" onclick="window.location.href='convert.html'" role="link" tabindex="0">
+                    <i class="fas fa-exchange-alt icon" aria-hidden="true"></i>
+                    <h2>Convert Files</h2>
                     <p>Convert between PDF and various formats including Word, Excel, PowerPoint, and images. Maintain formatting and quality.</p>
-                </div>
+                </article>
 
-                <div class="feature-card" onclick="window.location.href='rotate.html'">
-                    <i class="fas fa-redo icon"></i>
-                    <h3>Rotate PDF</h3>
+                <article class="feature-card" onclick="window.location.href='rotate.html'" role="link" tabindex="0">
+                    <i class="fas fa-redo icon" aria-hidden="true"></i>
+                    <h2>Rotate PDF</h2>
                     <p>Rotate PDF pages to the correct orientation. Fix scanned documents and improve readability.</p>
-                </div>
+                </article>
 
-                <div class="feature-card" onclick="window.location.href='compress.html'">
-                    <i class="fas fa-compress-arrows-alt icon"></i>
-                    <h3>Compress PDF</h3>
+                <article class="feature-card" onclick="window.location.href='compress.html'" role="link" tabindex="0">
+                    <i class="fas fa-compress-arrows-alt icon" aria-hidden="true"></i>
+                    <h2>Compress PDF</h2>
                     <p>Reduce PDF file size while maintaining quality. Perfect for email attachments and saving storage space.</p>
-                </div>
+                </article>
 
-                <div class="feature-card">
-                    <i class="fas fa-shield-alt icon"></i>
-                    <h3>100% Secure</h3>
+                <article class="feature-card">
+                    <i class="fas fa-shield-alt icon" aria-hidden="true"></i>
+                    <h2>100% Secure</h2>
                     <p>All processing happens in your browser. Your files never leave your computer, ensuring complete privacy.</p>
-                </div>
+                </article>
             </section>
 
             <section class="cta-section">
                 <h2>Ready to Get Started?</h2>
                 <p>Choose any tool from above to begin working with your PDF files. No sign-up required, and it's completely free!</p>
-                <a href="#" class="cta-btn" onclick="document.querySelector('.features-grid').scrollIntoView({behavior: 'smooth'})">
-                    Explore Tools <i class="fas fa-arrow-right"></i>
+                <a href="#" class="cta-btn" onclick="document.querySelector('.features-grid').scrollIntoView({behavior: 'smooth'})" aria-label="Explore PDF Tools">
+                    Explore Tools <i class="fas fa-arrow-right" aria-hidden="true"></i>
                 </a>
             </section>
-        </main>
-    </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 PdfDroid. All rights reserved. Free online PDF tools.</p>
+        </div>
+    </footer>
 
     <script src="js/nav.js"></script>
 </body>

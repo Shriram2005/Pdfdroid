@@ -1,0 +1,17 @@
+# robots.txt for PdfDroid
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /compress.html
+Allow: /merge.html
+Allow: /split.html
+Allow: /convert.html
+Allow: /rotate.html
+Allow: /css/
+Allow: /js/
+
+# Sitemaps
+Sitemap: https://pdfdroid.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1 
