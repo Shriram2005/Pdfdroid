@@ -5,7 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compress PDF - PDF Toolkit</title>
     <link rel="stylesheet" href="css/styles.css">
-    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <!-- PDF Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/pako@2.1.0/dist/pako.min.js"></script>
+    <style>
+        .compression-options {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .option-group {
+            margin: 15px 0;
+        }
+        .option-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        select, input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+        }
+        .quality-info {
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .file-info {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        .file-size {
+            font-weight: bold;
+            color: #2196F3;
+        }
+        .compression-stats {
+            display: none;
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 4px;
+        }
+        .progress-container {
+            display: none;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress {
+            width: 0;
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 0.3s ease;
+        }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .message.error {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .message.success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+    </style>
 </head>
 <body>
     <nav class="nav">
@@ -15,7 +93,7 @@
             <li class="nav-item"><a href="split.html">Split PDF</a></li>
             <li class="nav-item"><a href="convert.html">Convert Files</a></li>
             <li class="nav-item"><a href="rotate.html">Rotate PDF</a></li>
-            <li class="nav-item"><a href="compress.html">Compress PDF</a></li>
+            <li class="nav-item"><a href="compress.html" class="active">Compress PDF</a></li>
         </ul>
     </nav>
 
@@ -29,16 +107,55 @@
                 </div>
 
                 <div class="file-list"></div>
+                <div class="file-info"></div>
 
-                <div class="options-section">
+                <div class="compression-options">
+                    <h3>Compression Options</h3>
+                    
                     <div class="option-group">
                         <label for="compression-level">Compression Level:</label>
                         <select id="compression-level">
-                            <option value="low">Low (Better Quality)</option>
-                            <option value="medium">Medium (Balanced)</option>
-                            <option value="high">High (Smaller Size)</option>
+                            <option value="low">Light Compression (Better Quality)</option>
+                            <option value="medium" selected>Medium Compression (Balanced)</option>
+                            <option value="high">Maximum Compression (Smaller Size)</option>
+                            <option value="custom">Custom Settings</option>
                         </select>
+                        <div class="quality-info" id="compression-info">
+                            Balanced compression: Good quality with reasonable file size reduction
+                        </div>
                     </div>
+
+                    <div id="custom-options" style="display: none;">
+                        <div class="option-group">
+                            <label for="image-quality">Image Quality (%):</label>
+                            <input type="number" id="image-quality" min="1" max="100" value="75">
+                            <div class="quality-info">
+                                Lower values = smaller file size, but lower image quality
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <label for="image-scale">Image Scale (%):</label>
+                            <input type="number" id="image-scale" min="1" max="100" value="100">
+                            <div class="quality-info">
+                                Reduce image dimensions to decrease file size
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <label for="dpi">DPI Resolution:</label>
+                            <input type="number" id="dpi" min="72" max="300" value="150">
+                            <div class="quality-info">
+                                Lower DPI = smaller file size (72-300 DPI)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="compression-stats">
+                    <div>Original Size: <span id="original-size">0 KB</span></div>
+                    <div>Compressed Size: <span id="compressed-size">0 KB</span></div>
+                    <div>Reduction: <span id="size-reduction">0%</span></div>
                 </div>
 
                 <div class="messages"></div>
@@ -56,6 +173,9 @@
         </main>
     </div>
 
-    <script src="js/main.js"></script>
+    <!-- Load utility functions first -->
+    <script src="js/utils.js"></script>
+    <!-- Load page-specific script -->
+    <script src="js/compress.js"></script>
 </body>
 </html>
