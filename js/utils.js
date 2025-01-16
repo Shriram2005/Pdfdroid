@@ -16,6 +16,19 @@ const showMessage = (message, type = 'error') => {
     }
 };
 
+const showProgress = (show) => {
+    const progressContainer = document.querySelector('.progress-container');
+    if (progressContainer) {
+        progressContainer.style.display = show ? 'block' : 'none';
+        if (!show) {
+            const progressBar = document.querySelector('.progress');
+            if (progressBar) {
+                progressBar.style.width = '0%';
+            }
+        }
+    }
+};
+
 const showSpinner = (show) => {
     const spinner = document.querySelector('.spinner');
     if (spinner) {

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Toolkit - Your All-in-One PDF Solution</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="nav">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="index.html" class="active">Home</a></li>
+            <li class="nav-item"><a href="merge.html">Merge PDFs</a></li>
+            <li class="nav-item"><a href="split.html">Split PDF</a></li>
+            <li class="nav-item"><a href="convert.html">Convert Files</a></li>
+            <li class="nav-item"><a href="rotate.html">Rotate PDF</a></li>
+            <li class="nav-item"><a href="compress.html">Compress PDF</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <h1>Your Complete PDF Toolkit</h1>
+        <p>Fast, secure, and free PDF tools right in your browser. No installation needed.</p>
+    </div>
+
+    <div class="container">
+        <main class="main-content">
+            <section class="features-grid">
+                <div class="feature-card" onclick="window.location.href='merge.html'">
+                    <i class="fas fa-object-group icon"></i>
+                    <h3>Merge PDFs</h3>
+                    <p>Combine multiple PDF files into a single document with ease. Perfect for creating comprehensive reports or documentation.</p>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='split.html'">
+                    <i class="fas fa-cut icon"></i>
+                    <h3>Split PDF</h3>
+                    <p>Extract specific pages or split large PDFs into smaller documents. Ideal for sharing specific sections.</p>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='convert.html'">
+                    <i class="fas fa-exchange-alt icon"></i>
+                    <h3>Convert Files</h3>
+                    <p>Convert between PDF and various formats including Word, Excel, PowerPoint, and images. Maintain formatting and quality.</p>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='rotate.html'">
+                    <i class="fas fa-redo icon"></i>
+                    <h3>Rotate PDF</h3>
+                    <p>Rotate PDF pages to the correct orientation. Fix scanned documents and improve readability.</p>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='compress.html'">
+                    <i class="fas fa-compress-arrows-alt icon"></i>
+                    <h3>Compress PDF</h3>
+                    <p>Reduce PDF file size while maintaining quality. Perfect for email attachments and saving storage space.</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt icon"></i>
+                    <h3>100% Secure</h3>
+                    <p>All processing happens in your browser. Your files never leave your computer, ensuring complete privacy.</p>
+                </div>
+            </section>
+
+            <section class="cta-section">
+                <h2>Ready to Get Started?</h2>
+                <p>Choose any tool from above to begin working with your PDF files. No sign-up required, and it's completely free!</p>
+                <a href="#" class="cta-btn" onclick="document.querySelector('.features-grid').scrollIntoView({behavior: 'smooth'})">
+                    Explore Tools <i class="fas fa-arrow-right"></i>
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Add active class to current nav item
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-item a').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
