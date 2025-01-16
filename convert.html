@@ -13,9 +13,80 @@
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <!-- DocxJS -->
     <script src="https://unpkg.com/docx@8.2.3/build/index.min.js"></script>
+    <style>
+        .progress-container {
+            display: none;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress {
+            width: 0;
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 0.3s ease;
+        }
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .message.error {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .message.success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .message.info {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .remove-file {
+            cursor: pointer;
+            color: #e53935;
+            font-weight: bold;
+            padding: 0 10px;
+        }
+    </style>
 </head>
 <body>
     <nav class="nav">
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <ul class="nav-list">
             <li class="nav-item"><a href="index.html">Home</a></li>
             <li class="nav-item"><a href="merge.html">Merge PDFs</a></li>
@@ -69,39 +140,36 @@
         </main>
     </div>
 
-    <script src="js/main.js"></script>
     <script>
-        // Update accepted file types based on conversion type
-        document.getElementById('conversion-type').addEventListener('change', function() {
-            const fileInput = document.getElementById('file-input');
-            const conversionType = this.value;
-            
-            switch(conversionType) {
-                case 'pdf-to-image':
-                    fileInput.accept = '.pdf';
-                    break;
-                case 'image-to-pdf':
-                    fileInput.accept = '.jpg,.jpeg,.png';
-                    break;
-                case 'pdf-to-word':
-                case 'pdf-to-excel':
-                case 'pdf-to-ppt':
-                    fileInput.accept = '.pdf';
-                    break;
-                case 'word-to-pdf':
-                    fileInput.accept = '.docx,.doc';
-                    break;
-                case 'excel-to-pdf':
-                    fileInput.accept = '.xlsx,.xls';
-                    break;
-                case 'ppt-to-pdf':
-                    fileInput.accept = '.pptx,.ppt';
-                    break;
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('.nav');
+        const navList = document.querySelector('.nav-list');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navList.classList.toggle('active');
+            nav.classList.toggle('menu-open');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && navList.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navList.classList.remove('active');
+                nav.classList.remove('menu-open');
             }
         });
 
-        // Initialize with default value
-        document.getElementById('conversion-type').dispatchEvent(new Event('change'));
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-item a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navList.classList.remove('active');
+                nav.classList.remove('menu-open');
+            });
+        });
     </script>
+    <script src="js/convert.js"></script>
 </body>
 </html>

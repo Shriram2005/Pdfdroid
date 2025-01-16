@@ -10,6 +10,11 @@
 </head>
 <body>
     <nav class="nav">
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <ul class="nav-list">
             <li class="nav-item"><a href="index.html" class="active">Home</a></li>
             <li class="nav-item"><a href="merge.html">Merge PDFs</a></li>
@@ -75,16 +80,6 @@
         </main>
     </div>
 
-    <script>
-        // Add active class to current nav item
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            document.querySelectorAll('.nav-item a').forEach(link => {
-                if (link.getAttribute('href') === currentPage) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
+    <script src="js/nav.js"></script>
 </body>
 </html>
