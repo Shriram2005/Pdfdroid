@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free online PDF tools: compress, merge, split, convert, rotate, and extract pages from PDFs. No installation needed, 100% secure browser-based PDF manipulation tools.">
-    <meta name="keywords" content="PDF tools, compress PDF, merge PDF, split PDF, convert PDF, rotate PDF, extract PDF pages, online PDF editor, free PDF tools">
-    <meta name="author" content="Shriram Mange">
+    <meta name="description" content="Free online PDF tools: compress, merge, split, convert, rotate, watermark, add page numbers, extract text, edit metadata, and organize pages. No installation needed, 100% secure browser-based PDF manipulation tools.">
+    <meta name="keywords" content="PDF tools, compress PDF, merge PDF, split PDF, convert PDF, rotate PDF, watermark PDF, page numbers PDF, extract text PDF, PDF metadata, organize PDF pages, online PDF editor, free PDF tools">
+    <meta name="author" content="PdfDroid">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="PdfDroid - Free Online PDF Tools">
-    <meta property="og:description" content="Free online PDF tools: compress, merge, split, convert, rotate, and extract pages from PDFs. No installation needed, 100% secure browser-based tools.">
+    <meta property="og:description" content="Free online PDF tools: compress, merge, split, convert, rotate, watermark, add page numbers, extract text, edit metadata, and organize pages. No installation needed, 100% secure.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="path/to/logo.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="PdfDroid - Free Online PDF Tools">
-    <meta name="twitter:description" content="Free online PDF tools: compress, merge, split, convert, rotate, and extract pages from PDFs. No installation needed, 100% secure.">
-    <title>PdfDroid - Free Online PDF Tools | Compress, Merge, Split, Convert PDFs</title>
+    <meta name="twitter:description" content="Free online PDF tools for all your PDF needs. No installation needed, 100% secure.">
+    <title>PdfDroid - Free Online PDF Tools | Complete PDF Solution</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/png" href="favicon.png">
     <!-- Font Awesome for icons -->
@@ -32,34 +32,97 @@
             "price": "0",
             "priceCurrency": "USD"
         },
-        "description": "Free online PDF tools for compressing, merging, splitting, converting, rotating and extracting pages from PDF files. No installation needed.",
+        "description": "Free online PDF tools for all your PDF needs. Features include compression, merging, splitting, conversion, rotation, watermarking, page numbering, text extraction, metadata editing, and page organization.",
         "featureList": [
             "PDF Compression",
             "PDF Merging",
             "PDF Splitting",
             "PDF Conversion",
             "PDF Rotation",
-            "PDF Page Extraction"
+            "PDF Watermarking",
+            "PDF Page Numbering",
+            "PDF Text Extraction",
+            "PDF Metadata Editing",
+            "PDF Page Organization"
         ]
     }
     </script>
+    <style>
+        .features-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+        .feature-card {
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #007bff;
+        }
+        .tools-section {
+            padding: 2rem 0;
+            background: #f8f9fa;
+            margin-top: 2rem;
+            border-radius: 8px;
+        }
+        .tools-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="nav" role="navigation" aria-label="Main navigation">
-            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-list">
+            <button class="hamburger" aria-label="Toggle navigation menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
+            <div class="nav-overlay"></div>
             <ul class="nav-list" id="nav-list">
                 <li class="nav-item"><a href="index.html" aria-current="page">Home</a></li>
-                <li class="nav-item"><a href="merge.html">Merge PDFs</a></li>
-                <li class="nav-item"><a href="split.html">Split PDF</a></li>
-                <li class="nav-item"><a href="convert.html">Convert Files</a></li>
-                <li class="nav-item"><a href="rotate.html">Rotate PDF</a></li>
-                <li class="nav-item"><a href="compress.html">Compress PDF</a></li>
-                <li class="nav-item"><a href="extract.html">Extract Pages</a></li>
+                
+                <li class="nav-item dropdown">
+                    <a href="#">Basic Tools</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="merge.html"><i class="fas fa-object-group"></i>Merge PDFs</a></li>
+                        <li><a href="split.html"><i class="fas fa-cut"></i>Split PDF</a></li>
+                        <li><a href="rotate.html"><i class="fas fa-redo"></i>Rotate PDF</a></li>
+                        <li><a href="compress.html"><i class="fas fa-compress-arrows-alt"></i>Compress PDF</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a href="#">Convert</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="convert.html"><i class="fas fa-exchange-alt"></i>Convert Files</a></li>
+                        <li><a href="extract-text.html"><i class="fas fa-font"></i>Extract Text</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a href="#">Enhance</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="watermark.html"><i class="fas fa-stamp"></i>Add Watermark</a></li>
+                        <li><a href="page-numbers.html"><i class="fas fa-list-ol"></i>Add Page Numbers</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a href="#">Organize</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="organize.html"><i class="fas fa-th-large"></i>Organize Pages</a></li>
+                        <li><a href="metadata.html"><i class="fas fa-info-circle"></i>Edit Metadata</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
@@ -75,7 +138,7 @@
                 <article class="feature-card" onclick="window.location.href='merge.html'" role="link" tabindex="0">
                     <i class="fas fa-object-group icon" aria-hidden="true"></i>
                     <h2>Merge PDFs</h2>
-                    <p>Combine multiple PDF files into a single document with ease. Perfect for creating comprehensive reports or documentation.</p>
+                    <p>Combine multiple PDF files into a single document with ease. Perfect for creating comprehensive reports.</p>
                 </article>
 
                 <article class="feature-card" onclick="window.location.href='split.html'" role="link" tabindex="0">
@@ -87,7 +150,7 @@
                 <article class="feature-card" onclick="window.location.href='convert.html'" role="link" tabindex="0">
                     <i class="fas fa-exchange-alt icon" aria-hidden="true"></i>
                     <h2>Convert Files</h2>
-                    <p>Convert between PDF and various formats including Word, Excel, PowerPoint, and images. Maintain formatting and quality.</p>
+                    <p>Convert between PDF and various formats including Word, Excel, PowerPoint, and images.</p>
                 </article>
 
                 <article class="feature-card" onclick="window.location.href='rotate.html'" role="link" tabindex="0">
@@ -102,10 +165,34 @@
                     <p>Reduce PDF file size while maintaining quality. Perfect for email attachments and saving storage space.</p>
                 </article>
 
-                <article class="feature-card" onclick="window.location.href='extract.html'" role="link" tabindex="0">
-                    <i class="fas fa-copy icon" aria-hidden="true"></i>
-                    <h2>Extract Pages</h2>
-                    <p>Extract specific pages from your PDF files. Create new PDFs with just the pages you need.</p>
+                <article class="feature-card" onclick="window.location.href='extract-text.html'" role="link" tabindex="0">
+                    <i class="fas fa-font icon" aria-hidden="true"></i>
+                    <h2>Extract Text</h2>
+                    <p>Extract text content from PDF files with formatting preserved. Copy or save as TXT file.</p>
+                </article>
+
+                <article class="feature-card" onclick="window.location.href='watermark.html'" role="link" tabindex="0">
+                    <i class="fas fa-stamp icon" aria-hidden="true"></i>
+                    <h2>Add Watermark</h2>
+                    <p>Add text or image watermarks to your PDF files. Customize position, opacity, and rotation.</p>
+                </article>
+
+                <article class="feature-card" onclick="window.location.href='page-numbers.html'" role="link" tabindex="0">
+                    <i class="fas fa-list-ol icon" aria-hidden="true"></i>
+                    <h2>Add Page Numbers</h2>
+                    <p>Add customizable page numbers to your PDF files. Choose format, position, and style.</p>
+                </article>
+
+                <article class="feature-card" onclick="window.location.href='metadata.html'" role="link" tabindex="0">
+                    <i class="fas fa-info-circle icon" aria-hidden="true"></i>
+                    <h2>Edit Metadata</h2>
+                    <p>View and edit PDF document properties and metadata. Update title, author, and more.</p>
+                </article>
+
+                <article class="feature-card" onclick="window.location.href='organize.html'" role="link" tabindex="0">
+                    <i class="fas fa-th-large icon" aria-hidden="true"></i>
+                    <h2>Organize Pages</h2>
+                    <p>Reorder, delete, and rotate PDF pages. Organize your document structure easily.</p>
                 </article>
 
                 <article class="feature-card">
@@ -113,6 +200,35 @@
                     <h2>100% Secure</h2>
                     <p>All processing happens in your browser. Your files never leave your computer, ensuring complete privacy.</p>
                 </article>
+            </section>
+
+            <section class="tools-section">
+                <h2>Why Choose PdfDroid?</h2>
+                <div class="features-grid">
+                    <article class="feature-card">
+                        <i class="fas fa-bolt icon" aria-hidden="true"></i>
+                        <h3>Fast Processing</h3>
+                        <p>All tools work instantly in your browser with no waiting time.</p>
+                    </article>
+
+                    <article class="feature-card">
+                        <i class="fas fa-lock icon" aria-hidden="true"></i>
+                        <h3>Privacy First</h3>
+                        <p>Your files are processed locally. No uploads to external servers.</p>
+                    </article>
+
+                    <article class="feature-card">
+                        <i class="fas fa-desktop icon" aria-hidden="true"></i>
+                        <h3>No Installation</h3>
+                        <p>Works directly in your web browser. No software to download.</p>
+                    </article>
+
+                    <article class="feature-card">
+                        <i class="fas fa-dollar-sign icon" aria-hidden="true"></i>
+                        <h3>Always Free</h3>
+                        <p>All tools are completely free to use with no limitations.</p>
+                    </article>
+                </div>
             </section>
 
             <section class="cta-section">

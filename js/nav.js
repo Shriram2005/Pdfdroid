@@ -1,60 +1,75 @@
 // Mobile Navigation
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.querySelector('.hamburger');
-    const nav = document.querySelector('.nav');
     const navList = document.querySelector('.nav-list');
+    const navOverlay = document.querySelector('.nav-overlay');
+    const dropdowns = document.querySelectorAll('.dropdown');
+    const navItems = document.querySelectorAll('.nav-item');
 
-    // Set active state for current page
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.nav-item a').forEach(link => {
-        if (link.getAttribute('href') === currentPage) {
-            link.classList.add('active');
-        }
+    // Add animation delay to nav items
+    navItems.forEach((item, index) => {
+        item.style.setProperty('--item-index', index);
     });
 
-    // Toggle menu
-    hamburger.addEventListener('click', (e) => {
-        e.stopPropagation();
+    // Toggle mobile menu
+    function toggleMenu() {
         hamburger.classList.toggle('active');
         navList.classList.toggle('active');
-        nav.classList.toggle('menu-open');
-        
-        // Prevent body scroll when menu is open
+        navOverlay.classList.toggle('active');
         document.body.style.overflow = navList.classList.contains('active') ? 'hidden' : '';
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    navOverlay.addEventListener('click', toggleMenu);
+
+    // Handle dropdowns
+    dropdowns.forEach(dropdown => {
+        const link = dropdown.querySelector('a');
+        
+        // Mobile dropdown toggle
+        if (window.innerWidth <= 768) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+                const menu = dropdown.querySelector('.dropdown-menu');
+                menu.style.maxHeight = dropdown.classList.contains('active') ? `${menu.scrollHeight}px` : '0';
+            });
+        }
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-        if (!nav.contains(e.target) && navList.classList.contains('active')) {
+        if (!navList.contains(e.target) && !hamburger.contains(e.target)) {
             hamburger.classList.remove('active');
             navList.classList.remove('active');
-            nav.classList.remove('menu-open');
+            navOverlay.classList.remove('active');
             document.body.style.overflow = '';
         }
-    });
-
-    // Close menu when clicking a link
-    document.querySelectorAll('.nav-item a').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navList.classList.remove('active');
-            nav.classList.remove('menu-open');
-            document.body.style.overflow = '';
-        });
-    });
-
-    // Prevent menu close when clicking inside menu
-    navList.addEventListener('click', (e) => {
-        e.stopPropagation();
     });
 
     // Handle escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && navList.classList.contains('active')) {
-            hamburger.classList.remove('active');
-            navList.classList.remove('active');
-            nav.classList.remove('menu-open');
-            document.body.style.overflow = '';
+            toggleMenu();
         }
     });
+
+    // Close menu on resize if mobile menu is open
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && navList.classList.contains('active')) {
+            toggleMenu();
+        }
+    });
+
+    // Set active state based on current page
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const activeLink = navList.querySelector(`a[href="${currentPage}"]`);
+    if (activeLink) {
+        activeLink.setAttribute('aria-current', 'page');
+        // If in dropdown, highlight parent
+        const parentDropdown = activeLink.closest('.dropdown');
+        if (parentDropdown) {
+            parentDropdown.querySelector('> a').classList.add('active');
+        }
+    }
 }); 

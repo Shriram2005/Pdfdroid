@@ -236,7 +236,7 @@ async function compressPDF() {
             unit: 'mm',
             format: [ptToMm(viewport.width), ptToMm(viewport.height)]
         });
-        
+
         // Process each page
         for (let pageNum = 1; pageNum <= numPages; pageNum++) {
             // Get the page
