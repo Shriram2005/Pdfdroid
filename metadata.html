@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online PDF metadata viewer and editor. View and edit PDF document properties, metadata, and information.">
+    <meta name="keywords" content="PDF metadata, PDF properties, edit PDF metadata, PDF document info, PDF information">
+    <meta name="author" content="PdfDroid">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="PDF Metadata Viewer & Editor - Free Online Tool">
+    <meta property="og:description" content="View and edit PDF document properties and metadata. Update title, author, subject, keywords, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pdfdroid.com/metadata.html">
+    <title>PDF Metadata Viewer & Editor - Free Online Tool | PdfDroid</title>
+    <link rel="canonical" href="https://pdfdroid.com/metadata.html">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- PDF.js and PDF-lib -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <style>
+        .metadata-viewer {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .metadata-section {
+            margin-bottom: 20px;
+        }
+        .metadata-section h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .metadata-item {
+            margin-bottom: 15px;
+        }
+        .metadata-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .metadata-item input,
+        .metadata-item textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .metadata-item textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .metadata-item.read-only input,
+        .metadata-item.read-only textarea {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
+        .metadata-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        .metadata-preview {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .toggle-raw {
+            margin-top: 10px;
+            color: #007bff;
+            background: none;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .toggle-raw:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-list">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-list" id="nav-list">
+                <li class="nav-item"><a href="index.html">Home</a></li>
+                <li class="nav-item"><a href="merge.html">Merge PDFs</a></li>
+                <li class="nav-item"><a href="split.html">Split PDF</a></li>
+                <li class="nav-item"><a href="convert.html">Convert Files</a></li>
+                <li class="nav-item"><a href="rotate.html">Rotate PDF</a></li>
+                <li class="nav-item"><a href="compress.html">Compress PDF</a></li>
+                <li class="nav-item"><a href="watermark.html">Add Watermark</a></li>
+                <li class="nav-item"><a href="page-numbers.html">Add Page Numbers</a></li>
+                <li class="nav-item"><a href="metadata.html" aria-current="page">Edit Metadata</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="tool-section" role="main">
+                <h1 class="tool-title">PDF Metadata Viewer & Editor</h1>
+                
+                <div class="drop-zone" onclick="document.getElementById('file-input').click()" role="button" tabindex="0" aria-label="Drop zone for PDF files">
+                    <p>Drag and drop a PDF file here or click to select file</p>
+                    <input type="file" id="file-input" accept=".pdf" style="display: none" aria-label="File input">
+                </div>
+
+                <div class="file-list" role="list" aria-label="Selected files"></div>
+
+                <div class="metadata-viewer">
+                    <div class="metadata-section">
+                        <h3>Document Information</h3>
+                        <div class="metadata-grid">
+                            <div class="metadata-item">
+                                <label for="title">Title</label>
+                                <input type="text" id="title" placeholder="Document title">
+                            </div>
+                            <div class="metadata-item">
+                                <label for="author">Author</label>
+                                <input type="text" id="author" placeholder="Document author">
+                            </div>
+                            <div class="metadata-item">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" placeholder="Document subject">
+                            </div>
+                            <div class="metadata-item">
+                                <label for="keywords">Keywords</label>
+                                <textarea id="keywords" placeholder="Comma-separated keywords"></textarea>
+                            </div>
+                            <div class="metadata-item">
+                                <label for="producer">Producer</label>
+                                <input type="text" id="producer" readonly class="read-only">
+                            </div>
+                            <div class="metadata-item">
+                                <label for="creator">Creator</label>
+                                <input type="text" id="creator" readonly class="read-only">
+                            </div>
+                            <div class="metadata-item">
+                                <label for="creation-date">Creation Date</label>
+                                <input type="text" id="creation-date" readonly class="read-only">
+                            </div>
+                            <div class="metadata-item">
+                                <label for="mod-date">Modification Date</label>
+                                <input type="text" id="mod-date" readonly class="read-only">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metadata-section">
+                        <h3>Document Properties</h3>
+                        <div class="metadata-grid">
+                            <div class="metadata-item">
+                                <label for="page-count">Page Count</label>
+                                <input type="text" id="page-count" readonly class="read-only">
+                            </div>
+                            <div class="metadata-item">
+                                <label for="page-size">Page Size</label>
+                                <input type="text" id="page-size" readonly class="read-only">
+                            </div>
+                            <div class="metadata-item">
+                                <label for="pdf-version">PDF Version</label>
+                                <input type="text" id="pdf-version" readonly class="read-only">
+                            </div>
+                            <div class="metadata-item">
+                                <label for="file-size">File Size</label>
+                                <input type="text" id="file-size" readonly class="read-only">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="toggle-raw">View Raw Metadata</button>
+                    <div class="metadata-preview" style="display: none;"></div>
+
+                    <div class="metadata-actions">
+                        <button class="btn btn-secondary" id="reset-btn">Reset Changes</button>
+                        <button class="btn" id="apply-btn">Save Changes</button>
+                    </div>
+                </div>
+
+                <div class="messages" role="alert" aria-live="polite"></div>
+
+                <div class="progress-container" aria-label="Processing progress">
+                    <div class="progress-bar">
+                        <div class="progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+                <div class="spinner" role="status" aria-label="Processing"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 PdfDroid. All rights reserved. Free online PDF metadata editor.</p>
+        </div>
+    </footer>
+
+    <script src="js/nav.js"></script>
+    <script src="js/metadata.js"></script>
+</body>
+</html> 
