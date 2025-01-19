@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online PDF watermark tool. Add text or image watermarks to your PDF files. Customize position, opacity, and rotation.">
+    <meta name="keywords" content="PDF watermark, add watermark to PDF, PDF stamp, watermark PDF online, PDF text watermark">
+    <meta name="author" content="PdfDroid">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Add Watermark to PDF - Free Online Tool">
+    <meta property="og:description" content="Add custom text or image watermarks to your PDF files. Customize position, opacity, and rotation.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pdfdroid.com/watermark.html">
+    <title>Add Watermark to PDF - Free Online Tool | PdfDroid</title>
+    <link rel="canonical" href="https://pdfdroid.com/watermark.html">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- PDF.js and PDF-lib -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <style>
+        .watermark-options {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .option-group {
+            margin: 15px 0;
+        }
+        .option-group label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        .preview-canvas {
+            max-width: 100%;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .color-picker {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .watermark-type {
+            margin-bottom: 20px;
+        }
+        .watermark-type label {
+            margin-right: 20px;
+        }
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 10px 0;
+            display: none;
+        }
+        .range-with-value {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .range-with-value input[type="range"] {
+            flex: 1;
+        }
+        .range-value {
+            min-width: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-list">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-list" id="nav-list">
+                <li class="nav-item"><a href="index.html">Home</a></li>
+                <li class="nav-item"><a href="merge.html">Merge PDFs</a></li>
+                <li class="nav-item"><a href="split.html">Split PDF</a></li>
+                <li class="nav-item"><a href="convert.html">Convert Files</a></li>
+                <li class="nav-item"><a href="rotate.html">Rotate PDF</a></li>
+                <li class="nav-item"><a href="compress.html">Compress PDF</a></li>
+                <li class="nav-item"><a href="watermark.html" aria-current="page">Add Watermark</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="tool-section" role="main">
+                <h1 class="tool-title">Add Watermark to PDF</h1>
+                
+                <div class="drop-zone" onclick="document.getElementById('file-input').click()" role="button" tabindex="0" aria-label="Drop zone for PDF files">
+                    <p>Drag and drop a PDF file here or click to select file</p>
+                    <input type="file" id="file-input" accept=".pdf" style="display: none" aria-label="File input">
+                </div>
+
+                <div class="file-list" role="list" aria-label="Selected files"></div>
+
+                <div class="watermark-options">
+                    <h2>Watermark Options</h2>
+                    
+                    <div class="watermark-type">
+                        <label>
+                            <input type="radio" name="watermark-type" value="text" checked>
+                            Text Watermark
+                        </label>
+                        <label>
+                            <input type="radio" name="watermark-type" value="image">
+                            Image Watermark
+                        </label>
+                    </div>
+
+                    <div id="text-options">
+                        <div class="option-group">
+                            <label for="watermark-text">Watermark Text:</label>
+                            <input type="text" id="watermark-text" value="CONFIDENTIAL" class="form-control">
+                        </div>
+
+                        <div class="option-group">
+                            <label for="font-size">Font Size:</label>
+                            <div class="range-with-value">
+                                <input type="range" id="font-size" min="12" max="72" value="36">
+                                <span class="range-value">36px</span>
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <label for="text-color">Text Color:</label>
+                            <input type="color" id="text-color" value="#000000" class="color-picker">
+                        </div>
+                    </div>
+
+                    <div id="image-options" style="display: none;">
+                        <div class="option-group">
+                            <label for="watermark-image">Select Image:</label>
+                            <input type="file" id="watermark-image" accept="image/*" class="form-control">
+                            <img id="image-preview" class="image-preview" alt="Watermark preview">
+                        </div>
+
+                        <div class="option-group">
+                            <label for="image-scale">Image Scale:</label>
+                            <div class="range-with-value">
+                                <input type="range" id="image-scale" min="10" max="100" value="50">
+                                <span class="range-value">50%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="opacity">Opacity:</label>
+                        <div class="range-with-value">
+                            <input type="range" id="opacity" min="10" max="100" value="30">
+                            <span class="range-value">30%</span>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="rotation">Rotation:</label>
+                        <div class="range-with-value">
+                            <input type="range" id="rotation" min="-180" max="180" value="-45">
+                            <span class="range-value">-45°</span>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="position">Position:</label>
+                        <select id="position" class="form-control">
+                            <option value="center">Center</option>
+                            <option value="top-left">Top Left</option>
+                            <option value="top-right">Top Right</option>
+                            <option value="bottom-left">Bottom Left</option>
+                            <option value="bottom-right">Bottom Right</option>
+                            <option value="tile">Tile</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label>
+                            <input type="checkbox" id="all-pages" checked>
+                            Apply to all pages
+                        </label>
+                    </div>
+                </div>
+
+                <canvas id="preview-canvas" class="preview-canvas"></canvas>
+
+                <div class="messages" role="alert" aria-live="polite"></div>
+
+                <div class="progress-container" aria-label="Watermark progress">
+                    <div class="progress-bar">
+                        <div class="progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+                <div class="spinner" role="status" aria-label="Processing"></div>
+
+                <button id="apply-btn" class="btn" aria-label="Apply Watermark">Apply Watermark</button>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 PdfDroid. All rights reserved. Free online PDF watermark tool.</p>
+        </div>
+    </footer>
+
+    <script src="js/nav.js"></script>
+    <script src="js/watermark.js"></script>
+</body>
+</html> 

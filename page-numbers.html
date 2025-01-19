@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online PDF page numbering tool. Add page numbers to your PDF files with custom formatting and positioning.">
+    <meta name="keywords" content="PDF page numbers, add page numbers to PDF, PDF numbering, PDF Bates numbering, PDF page counter">
+    <meta name="author" content="PdfDroid">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Add Page Numbers to PDF - Free Online Tool">
+    <meta property="og:description" content="Add customizable page numbers to your PDF files. Choose format, position, and style.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pdfdroid.com/page-numbers.html">
+    <title>Add Page Numbers to PDF - Free Online Tool | PdfDroid</title>
+    <link rel="canonical" href="https://pdfdroid.com/page-numbers.html">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- PDF.js and PDF-lib -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <style>
+        .numbering-options {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .option-group {
+            margin: 15px 0;
+        }
+        .option-group label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        .preview-canvas {
+            max-width: 100%;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .format-preview {
+            font-family: monospace;
+            padding: 8px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        .page-range {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .page-range input[type="number"] {
+            width: 80px;
+        }
+        .position-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .position-option {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .position-option.selected {
+            background: #007bff;
+            color: white;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-list">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-list" id="nav-list">
+                <li class="nav-item"><a href="index.html">Home</a></li>
+                <li class="nav-item"><a href="merge.html">Merge PDFs</a></li>
+                <li class="nav-item"><a href="split.html">Split PDF</a></li>
+                <li class="nav-item"><a href="convert.html">Convert Files</a></li>
+                <li class="nav-item"><a href="rotate.html">Rotate PDF</a></li>
+                <li class="nav-item"><a href="compress.html">Compress PDF</a></li>
+                <li class="nav-item"><a href="watermark.html">Add Watermark</a></li>
+                <li class="nav-item"><a href="page-numbers.html" aria-current="page">Add Page Numbers</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="tool-section" role="main">
+                <h1 class="tool-title">Add Page Numbers to PDF</h1>
+                
+                <div class="drop-zone" onclick="document.getElementById('file-input').click()" role="button" tabindex="0" aria-label="Drop zone for PDF files">
+                    <p>Drag and drop a PDF file here or click to select file</p>
+                    <input type="file" id="file-input" accept=".pdf" style="display: none" aria-label="File input">
+                </div>
+
+                <div class="file-list" role="list" aria-label="Selected files"></div>
+
+                <div class="numbering-options">
+                    <h2>Page Numbering Options</h2>
+
+                    <div class="option-group">
+                        <label for="number-format">Number Format:</label>
+                        <select id="number-format" class="form-control">
+                            <option value="decimal">1, 2, 3...</option>
+                            <option value="roman">I, II, III...</option>
+                            <option value="roman-lower">i, ii, iii...</option>
+                            <option value="letter">A, B, C...</option>
+                            <option value="letter-lower">a, b, c...</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="prefix">Prefix:</label>
+                        <input type="text" id="prefix" value="Page " class="form-control">
+                    </div>
+
+                    <div class="option-group">
+                        <label for="suffix">Suffix:</label>
+                        <input type="text" id="suffix" value="" class="form-control">
+                    </div>
+
+                    <div class="option-group">
+                        <label>Position:</label>
+                        <div class="position-grid">
+                            <div class="position-option" data-position="top-left">Top Left</div>
+                            <div class="position-option" data-position="top-center">Top Center</div>
+                            <div class="position-option" data-position="top-right">Top Right</div>
+                            <div class="position-option" data-position="bottom-left">Bottom Left</div>
+                            <div class="position-option selected" data-position="bottom-center">Bottom Center</div>
+                            <div class="position-option" data-position="bottom-right">Bottom Right</div>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="font-size">Font Size:</label>
+                        <div class="range-with-value">
+                            <input type="range" id="font-size" min="8" max="24" value="12">
+                            <span class="range-value">12px</span>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="margin">Margin:</label>
+                        <div class="range-with-value">
+                            <input type="range" id="margin" min="10" max="50" value="20">
+                            <span class="range-value">20px</span>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label>Page Range:</label>
+                        <div class="page-range">
+                            <label>
+                                From:
+                                <input type="number" id="start-page" value="1" min="1" class="form-control">
+                            </label>
+                            <label>
+                                To:
+                                <input type="number" id="end-page" value="1" min="1" class="form-control">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label>
+                            <input type="checkbox" id="skip-first" checked>
+                            Skip first page
+                        </label>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="start-number">Start numbering from:</label>
+                        <input type="number" id="start-number" value="1" min="1" class="form-control">
+                    </div>
+
+                    <div class="option-group">
+                        <label>Format Preview:</label>
+                        <div id="format-preview" class="format-preview">Page 1</div>
+                    </div>
+                </div>
+
+                <canvas id="preview-canvas" class="preview-canvas"></canvas>
+
+                <div class="messages" role="alert" aria-live="polite"></div>
+
+                <div class="progress-container" aria-label="Numbering progress">
+                    <div class="progress-bar">
+                        <div class="progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+                <div class="spinner" role="status" aria-label="Processing"></div>
+
+                <button id="apply-btn" class="btn" aria-label="Add Page Numbers">Add Page Numbers</button>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 PdfDroid. All rights reserved. Free online PDF page numbering tool.</p>
+        </div>
+    </footer>
+
+    <script src="js/nav.js"></script>
+    <script src="js/page-numbers.js"></script>
+</body>
+</html> 
