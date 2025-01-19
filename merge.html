@@ -6,6 +6,7 @@
     <title>Merge PDFs - PDF Toolkit</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
     <nav class="nav">
@@ -21,6 +22,7 @@
             <li class="nav-item"><a href="convert.html">Convert Files</a></li>
             <li class="nav-item"><a href="rotate.html">Rotate PDF</a></li>
             <li class="nav-item"><a href="compress.html">Compress PDF</a></li>
+            <li class="nav-item"><a href="extract.html">Extract Pages</a></li>
         </ul>
     </nav>
 
@@ -34,6 +36,22 @@
                 </div>
 
                 <div class="file-list"></div>
+
+                <div class="preview-section">
+                    <h2>PDF Preview</h2>
+                    <div class="preview-controls">
+                        <button class="btn btn-small" id="prev-page" disabled>Previous</button>
+                        <span>Page <span id="page-num">0</span> of <span id="page-count">0</span></span>
+                        <button class="btn btn-small" id="next-page" disabled>Next</button>
+                    </div>
+                    <div class="preview-container">
+                        <canvas id="pdf-preview"></canvas>
+                    </div>
+                    <div class="preview-info">
+                        <p>Total Files: <span id="total-files">0</span></p>
+                        <p>Total Pages: <span id="total-pages">0</span></p>
+                    </div>
+                </div>
 
                 <div class="messages"></div>
 
@@ -50,7 +68,59 @@
         </main>
     </div>
 
+    <style>
+        .preview-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .preview-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .preview-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: auto;
+            margin: 15px 0;
+        }
+
+        .preview-container canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .preview-info {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            color: #666;
+        }
+
+        .btn-small {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
+        #pdf-preview {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+
     <script src="js/nav.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/merge.js"></script>
 </body>
 </html>
