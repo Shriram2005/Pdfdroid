@@ -1,8 +1,9 @@
 // Mobile Navigation
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.querySelector('.hamburger');
-    const navList = document.querySelector('.nav-list');
+    const nav = document.querySelector('.nav');
     const navOverlay = document.querySelector('.nav-overlay');
+    const mainContent = document.querySelector('.main-content');
     const dropdowns = document.querySelectorAll('.dropdown');
     const navItems = document.querySelectorAll('.nav-item');
 
@@ -11,65 +12,66 @@ document.addEventListener('DOMContentLoaded', () => {
         item.style.setProperty('--item-index', index);
     });
 
-    // Toggle mobile menu
-    function toggleMenu() {
+    // Toggle navigation
+    function toggleNav() {
         hamburger.classList.toggle('active');
-        navList.classList.toggle('active');
+        nav.classList.toggle('active');
         navOverlay.classList.toggle('active');
-        document.body.style.overflow = navList.classList.contains('active') ? 'hidden' : '';
+        mainContent.classList.toggle('nav-active');
     }
 
-    hamburger.addEventListener('click', toggleMenu);
-    navOverlay.addEventListener('click', toggleMenu);
+    hamburger.addEventListener('click', toggleNav);
+    navOverlay.addEventListener('click', toggleNav);
 
     // Handle dropdowns
     dropdowns.forEach(dropdown => {
         const link = dropdown.querySelector('a');
-        
-        // Mobile dropdown toggle
-        if (window.innerWidth <= 768) {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                dropdown.classList.toggle('active');
-                const menu = dropdown.querySelector('.dropdown-menu');
-                menu.style.maxHeight = dropdown.classList.contains('active') ? `${menu.scrollHeight}px` : '0';
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            dropdown.classList.toggle('active');
+
+            // Close other dropdowns
+            dropdowns.forEach(other => {
+                if (other !== dropdown) {
+                    other.classList.remove('active');
+                }
             });
-        }
+        });
     });
 
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!navList.contains(e.target) && !hamburger.contains(e.target)) {
-            hamburger.classList.remove('active');
-            navList.classList.remove('active');
-            navOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
+    // Close navigation on link click (mobile)
+    const navLinks = document.querySelectorAll('.nav-list .nav-item a:not(.dropdown > a)');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                toggleNav();
+            }
+        });
     });
 
     // Handle escape key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navList.classList.contains('active')) {
-            toggleMenu();
+        if (e.key === 'Escape' && nav.classList.contains('active')) {
+            toggleNav();
         }
     });
 
     // Close menu on resize if mobile menu is open
     window.addEventListener('resize', () => {
-        if (window.innerWidth > 768 && navList.classList.contains('active')) {
-            toggleMenu();
+        if (window.innerWidth > 768 && nav.classList.contains('active')) {
+            toggleNav();
         }
     });
 
-    // Set active state based on current page
+    // Set active menu item based on current page
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const activeLink = navList.querySelector(`a[href="${currentPage}"]`);
+    const activeLink = document.querySelector(`.nav-list a[href="${currentPage}"]`);
     if (activeLink) {
-        activeLink.setAttribute('aria-current', 'page');
-        // If in dropdown, highlight parent
+        activeLink.classList.add('active');
+        // If in dropdown, expand the dropdown
         const parentDropdown = activeLink.closest('.dropdown');
         if (parentDropdown) {
-            parentDropdown.querySelector('> a').classList.add('active');
+            parentDropdown.classList.add('active');
         }
     }
 }); 

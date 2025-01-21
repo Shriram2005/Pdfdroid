@@ -83,17 +83,23 @@
 <body>
     <header>
         <nav class="nav" role="navigation" aria-label="Main navigation">
-            <button class="hamburger" aria-label="Toggle navigation menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div class="nav-overlay"></div>
+            <div class="nav-brand">
+                <img src="img/logo.png" alt="PdfDroid Logo">
+                <h1>PdfDroid</h1>
+            </div>
             <ul class="nav-list" id="nav-list">
-                <li class="nav-item"><a href="index.html" aria-current="page">Home</a></li>
+                <li class="nav-item">
+                    <a href="index.html" aria-current="page">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                </li>
                 
                 <li class="nav-item dropdown">
-                    <a href="#">Basic Tools</a>
+                    <a href="#">
+                        <i class="fas fa-tools"></i>
+                        Basic Tools
+                    </a>
                     <ul class="dropdown-menu">
                         <li><a href="merge.html"><i class="fas fa-object-group"></i>Merge PDFs</a></li>
                         <li><a href="split.html"><i class="fas fa-cut"></i>Split PDF</a></li>
@@ -103,7 +109,10 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a href="#">Convert</a>
+                    <a href="#">
+                        <i class="fas fa-exchange-alt"></i>
+                        Convert
+                    </a>
                     <ul class="dropdown-menu">
                         <li><a href="convert.html"><i class="fas fa-exchange-alt"></i>Convert Files</a></li>
                         <li><a href="extract-text.html"><i class="fas fa-font"></i>Extract Text</a></li>
@@ -111,7 +120,10 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a href="#">Enhance</a>
+                    <a href="#">
+                        <i class="fas fa-magic"></i>
+                        Enhance
+                    </a>
                     <ul class="dropdown-menu">
                         <li><a href="watermark.html"><i class="fas fa-stamp"></i>Add Watermark</a></li>
                         <li><a href="page-numbers.html"><i class="fas fa-list-ol"></i>Add Page Numbers</a></li>
@@ -119,7 +131,10 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a href="#">Organize</a>
+                    <a href="#">
+                        <i class="fas fa-layer-group"></i>
+                        Organize
+                    </a>
                     <ul class="dropdown-menu">
                         <li><a href="organize.html"><i class="fas fa-th-large"></i>Organize Pages</a></li>
                         <li><a href="metadata.html"><i class="fas fa-info-circle"></i>Edit Metadata</a></li>
@@ -127,9 +142,15 @@
                 </li>
             </ul>
         </nav>
+        <button class="hamburger" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-overlay"></div>
     </header>
 
-    <main>
+    <main class="main-content">
         <section class="hero" role="banner">
             <h1>Your Complete PDF Toolkit</h1>
             <p>Fast, secure, and free PDF tools right in your browser. No installation needed.</p>
