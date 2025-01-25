@@ -1,17 +1,32 @@
 # robots.txt for PdfDroid
 User-agent: *
 Allow: /
+
+# Main Pages
 Allow: /index.html
 Allow: /compress.html
 Allow: /merge.html
 Allow: /split.html
 Allow: /convert.html
 Allow: /rotate.html
+Allow: /metadata.html
+Allow: /watermark.html
+Allow: /page-numbers.html
+
+# Legal and Support Pages
+Allow: /privacy.html
+Allow: /terms.html
+Allow: /faq.html
+Allow: /contact.html
+
+# Asset Directories
 Allow: /css/
 Allow: /js/
+Allow: /images/
 
 # Sitemaps
-Sitemap: https://pdfdroid.com/sitemap.xml
+Sitemap: https://pdfdroid.vercel.app//sitemap.xml
 
-# Crawl-delay
-Crawl-delay: 1 
+# Crawling Directives
+Crawl-delay: 2
+Request-rate: 1/1s

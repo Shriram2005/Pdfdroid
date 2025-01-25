@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://pdfdroid.com/</loc>
+        <loc>https://pdfdroid.vercel.app//</loc>
         <lastmod>2024-01-16</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://pdfdroid.com/compress.html</loc>
+        <loc>https://pdfdroid.vercel.app//compress.html</loc>
         <lastmod>2024-01-16</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://pdfdroid.com/merge.html</loc>
+        <loc>https://pdfdroid.vercel.app//merge.html</loc>
         <lastmod>2024-01-16</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://pdfdroid.com/split.html</loc>
+        <loc>https://pdfdroid.vercel.app//split.html</loc>
         <lastmod>2024-01-16</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://pdfdroid.com/convert.html</loc>
+        <loc>https://pdfdroid.vercel.app//convert.html</loc>
         <lastmod>2024-01-16</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://pdfdroid.com/rotate.html</loc>
+        <loc>https://pdfdroid.vercel.app//rotate.html</loc>
         <lastmod>2024-01-16</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
