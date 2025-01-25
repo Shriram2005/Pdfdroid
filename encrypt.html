@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encrypt PDF - PdfDroid</title>
+    <meta name="description" content="Securely encrypt your PDF files with password protection. All processing happens in your browser for maximum security.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="js/nav.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="img/logo.png" alt="PdfDroid Logo">
+                </a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu"></ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="tool-section">
+                <h1><i class="fas fa-lock"></i> Encrypt PDF</h1>
+                <p class="tool-description">Add password protection to your PDF files. All processing happens locally in your browser for maximum security.</p>
+
+                <div class="tool-container">
+                    <div class="upload-container" id="dropZone">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>Drop your PDF here or click to upload</h3>
+                        <input type="file" id="fileInput" accept=".pdf" class="file-input" />
+                    </div>
+
+                    <div class="options-container" id="optionsContainer" style="display: none;">
+                        <div class="password-section">
+                            <div class="input-group">
+                                <label for="ownerPassword">Owner Password (Full Access):</label>
+                                <input type="password" id="ownerPassword" class="password-input" required>
+                                <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="input-group">
+                                <label for="userPassword">User Password (Open Document):</label>
+                                <input type="password" id="userPassword" class="password-input" required>
+                                <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="permissions-section">
+                            <h4>Document Permissions:</h4>
+                            <div class="checkbox-group">
+                                <label>
+                                    <input type="checkbox" id="allowPrinting" checked>
+                                    Allow Printing
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="allowModifying" checked>
+                                    Allow Modifying
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="allowCopying" checked>
+                                    Allow Copying Text
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="allowAnnotating" checked>
+                                    Allow Annotations
+                                </label>
+                            </div>
+                        </div>
+
+                        <button id="encryptButton" class="primary-button">
+                            <i class="fas fa-lock"></i> Encrypt PDF
+                        </button>
+                    </div>
+
+                    <div id="progressContainer" class="progress-container" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress" id="progressBar"></div>
+                        </div>
+                        <p id="progressText">Processing... 0%</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h2>About PDF Encryption</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Secure Encryption</h3>
+                        <p>Uses industry-standard AES-256 encryption to protect your PDFs.</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-laptop"></i>
+                        <h3>Client-Side Processing</h3>
+                        <p>All encryption happens in your browser - files never leave your device.</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-key"></i>
+                        <h3>Two-Password System</h3>
+                        <p>Set different passwords for viewing and editing the PDF.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 PdfDroid. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/encrypt.js"></script>
+</body>
+</html>
