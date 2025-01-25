@@ -81,13 +81,16 @@ async function loadPdfMetadata(file) {
     progressBar.style.width = '0%';
 
     try {
+        // Create separate ArrayBuffers for PDF.js and PDF-lib
+        const pdfJsBuffer = await file.arrayBuffer();
+        const pdfLibBuffer = await file.arrayBuffer();
+
         // Load with PDF.js for reading
-        const arrayBuffer = await file.arrayBuffer();
-        const pdfJsDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        const pdfJsDoc = await pdfjsLib.getDocument({ data: pdfJsBuffer }).promise;
         const metadata = await pdfJsDoc.getMetadata();
 
         // Load with PDF-lib for editing
-        pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+        pdfDoc = await PDFLib.PDFDocument.load(pdfLibBuffer);
         
         // Store original metadata
         originalMetadata = {
