@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const dropZone = document.getElementById('dropZone');
+    const dropZone = document.querySelector('.drop-zone');
     const fileInput = document.getElementById('fileInput');
-    const optionsContainer = document.getElementById('optionsContainer');
-    const progressContainer = document.getElementById('progressContainer');
+    const optionsContainer = document.querySelector('.encryption-options');
+    const progressContainer = document.querySelector('.progress-container');
     const progressBar = document.getElementById('progressBar');
     const progressText = document.getElementById('progressText');
     const encryptButton = document.getElementById('encryptButton');
+    let selectedFile = null;
 
     // Setup drag and drop
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -50,11 +51,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleFile(file) {
         if (file && file.type === 'application/pdf') {
-            optionsContainer.style.display = 'block';
-            dropZone.querySelector('h3').textContent = file.name;
+            selectedFile = file;
+            dropZone.querySelector('.drop-text').textContent = file.name;
             dropZone.classList.add('file-selected');
+            optionsContainer.style.display = 'block';
+            progressContainer.style.display = 'none';
         } else {
-            alert('Please select a PDF file.');
+            alert('Please select a valid PDF file.');
+            resetForm();
         }
     }
 
@@ -78,8 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle encryption
     encryptButton.addEventListener('click', async function() {
-        const file = fileInput.files[0];
-        if (!file) {
+        if (!selectedFile) {
             alert('Please select a PDF file first.');
             return;
         }
@@ -107,12 +110,18 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             optionsContainer.style.display = 'none';
             progressContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+            progressText.textContent = 'Reading PDF file...';
             
             // Read the PDF file
-            const arrayBuffer = await file.arrayBuffer();
+            const arrayBuffer = await readFileAsArrayBuffer(selectedFile);
+            progressBar.style.width = '30%';
+            progressText.textContent = 'Processing PDF...';
             
             // Load the PDF document
             const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+            progressBar.style.width = '60%';
+            progressText.textContent = 'Encrypting PDF...';
             
             // Encrypt the PDF
             await pdfDoc.encrypt({
@@ -129,6 +138,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
+            progressBar.style.width = '80%';
+            progressText.textContent = 'Finalizing...';
+
             // Save the encrypted PDF
             const encryptedPdfBytes = await pdfDoc.save();
             
@@ -137,7 +149,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `encrypted_${file.name}`;
+            link.download = `encrypted_${selectedFile.name}`;
+            
+            progressBar.style.width = '100%';
+            progressText.textContent = 'Download starting...';
             
             // Trigger download
             document.body.appendChild(link);
@@ -145,71 +160,38 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
 
-            // Reset UI
-            progressContainer.style.display = 'none';
-            optionsContainer.style.display = 'block';
-            resetForm();
+            // Reset UI after short delay
+            setTimeout(() => {
+                resetForm();
+                alert('PDF encrypted successfully!');
+            }, 1000);
 
         } catch (error) {
             console.error('Error encrypting PDF:', error);
             alert('Error encrypting PDF. Please try again.');
-            progressContainer.style.display = 'none';
-            optionsContainer.style.display = 'block';
+            resetForm();
         }
     });
 
+    function readFileAsArrayBuffer(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => reject(reader.error);
+            reader.readAsArrayBuffer(file);
+        });
+    }
+
     function resetForm() {
+        selectedFile = null;
         fileInput.value = '';
         document.getElementById('ownerPassword').value = '';
         document.getElementById('userPassword').value = '';
-        dropZone.querySelector('h3').textContent = 'Drop your PDF here or click to upload';
+        dropZone.querySelector('.drop-text').textContent = 'Drop your PDF here or click to upload';
         dropZone.classList.remove('file-selected');
         optionsContainer.style.display = 'none';
+        progressContainer.style.display = 'none';
+        progressBar.style.width = '0%';
+        progressText.textContent = 'Processing... 0%';
     }
-
-    // Add this to the existing CSS styles
-    const style = document.createElement('style');
-    style.textContent = `
-        .file-selected {
-            background-color: #e8f5e9 !important;
-        }
-        .drag-over {
-            background-color: #e3f2fd !important;
-            border-color: #2196f3 !important;
-        }
-        .password-section {
-            margin-bottom: 20px;
-        }
-        .input-group {
-            position: relative;
-            margin-bottom: 15px;
-        }
-        .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #666;
-        }
-        .password-input {
-            padding-right: 35px;
-        }
-        .permissions-section {
-            margin-bottom: 20px;
-        }
-        .checkbox-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-        }
-        .checkbox-group label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-    `;
-    document.head.appendChild(style);
 });

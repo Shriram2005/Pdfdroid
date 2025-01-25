@@ -1,0 +1,9 @@
+
+
+
+
+
+
+add same navigation design in all pages
+
+add same footer design in all pages

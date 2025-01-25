@@ -3,94 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encrypt PDF - PdfDroid</title>
-    <meta name="description" content="Securely encrypt your PDF files with password protection. All processing happens in your browser for maximum security.">
+    <meta name="description" content="Free online PDF encryption tool. Securely password protect your PDF files with client-side encryption. No file upload needed.">
+    <meta name="keywords" content="encrypt PDF, password protect PDF, secure PDF, PDF encryption, PDF password, online PDF encryption">
+    <meta name="author" content="PdfDroid">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Encrypt PDF - Free Online PDF Encryption Tool">
+    <meta property="og:description" content="Securely password protect your PDF files with client-side encryption. No file upload needed.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pdfdroid.com/encrypt.html">
+    <title>Encrypt PDF Online - Free PDF Password Protection | PdfDroid</title>
+    <link rel="canonical" href="https://pdfdroid.com/encrypt.html">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- Google Ads -->
+    <meta name="google-adsense-account" content="ca-pub-6845573593006695">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- PDF Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-    <script src="js/nav.js" defer></script>
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "PdfDroid PDF Encryptor",
+        "applicationCategory": "PDF Tool",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": "Free online PDF encryption tool. Securely password protect your PDF files.",
+        "featureList": [
+            "Client-side encryption",
+            "Password protection",
+            "Permission control",
+            "Instant download"
+        ]
+    }
+    </script>
+    <style>
+        .encryption-options {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            display: none;
+        }
+        
+        .password-section {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .input-group input[type="password"] {
+            width: 100%;
+            padding: 10px 35px 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input[type="password"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 33px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            padding: 0;
+        }
+
+        .permissions-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .permissions-section h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            font-size: 16px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--secondary-color);
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .progress-container {
+            display: none;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        #progressText {
+            font-size: 14px;
+            color: var(--secondary-color);
+        }
+
+        .info-section {
+            margin-top: 40px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .info-card i {
+            font-size: 2em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .info-card h3 {
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .info-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .drop-zone.file-selected {
+            background-color: rgba(74, 144, 226, 0.05);
+            border-color: var(--primary-color);
+        }
+
+        .drop-zone.drag-over {
+            background-color: rgba(74, 144, 226, 0.1);
+            border-color: var(--primary-color);
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="nav" role="navigation" aria-label="Main navigation">
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-list">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <div class="nav-brand">
                 <a href="index.html">
                     <img src="img/logo.png" alt="PdfDroid Logo">
                 </a>
             </div>
-            <button class="nav-toggle" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu"></ul>
+            <ul class="nav-list" id="nav-list"></ul>
         </nav>
     </header>
 
-    <main class="main-content">
+    <main>
         <div class="container">
-            <section class="tool-section">
-                <h1><i class="fas fa-lock"></i> Encrypt PDF</h1>
+            <section class="tool-section" role="main">
+                <h1 class="tool-title">Encrypt PDF</h1>
                 <p class="tool-description">Add password protection to your PDF files. All processing happens locally in your browser for maximum security.</p>
 
-                <div class="tool-container">
-                    <div class="upload-container" id="dropZone">
-                        <i class="fas fa-file-pdf"></i>
-                        <h3>Drop your PDF here or click to upload</h3>
-                        <input type="file" id="fileInput" accept=".pdf" class="file-input" />
+                <div class="drop-zone" onclick="document.getElementById('fileInput').click()" role="button" tabindex="0" aria-label="Drop zone for PDF files">
+                    <i class="fas fa-file-pdf"></i>
+                    <p class="drop-text">Drop your PDF here or click to upload</p>
+                    <input type="file" id="fileInput" accept=".pdf" class="file-input" aria-label="Choose PDF file" />
+                </div>
+
+                <div class="encryption-options" id="optionsContainer">
+                    <div class="password-section">
+                        <div class="input-group">
+                            <label for="ownerPassword">Owner Password (Full Access):</label>
+                            <input type="password" id="ownerPassword" class="password-input" required>
+                            <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="input-group">
+                            <label for="userPassword">User Password (Open Document):</label>
+                            <input type="password" id="userPassword" class="password-input" required>
+                            <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="options-container" id="optionsContainer" style="display: none;">
-                        <div class="password-section">
-                            <div class="input-group">
-                                <label for="ownerPassword">Owner Password (Full Access):</label>
-                                <input type="password" id="ownerPassword" class="password-input" required>
-                                <button type="button" class="toggle-password" aria-label="Toggle password visibility">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                            <div class="input-group">
-                                <label for="userPassword">User Password (Open Document):</label>
-                                <input type="password" id="userPassword" class="password-input" required>
-                                <button type="button" class="toggle-password" aria-label="Toggle password visibility">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
+                    <div class="permissions-section">
+                        <h3>Document Permissions</h3>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="allowPrinting" checked>
+                                Allow Printing
+                            </label>
+                            <label>
+                                <input type="checkbox" id="allowModifying" checked>
+                                Allow Modifying
+                            </label>
+                            <label>
+                                <input type="checkbox" id="allowCopying" checked>
+                                Allow Copying Text
+                            </label>
+                            <label>
+                                <input type="checkbox" id="allowAnnotating" checked>
+                                Allow Annotations
+                            </label>
                         </div>
-
-                        <div class="permissions-section">
-                            <h4>Document Permissions:</h4>
-                            <div class="checkbox-group">
-                                <label>
-                                    <input type="checkbox" id="allowPrinting" checked>
-                                    Allow Printing
-                                </label>
-                                <label>
-                                    <input type="checkbox" id="allowModifying" checked>
-                                    Allow Modifying
-                                </label>
-                                <label>
-                                    <input type="checkbox" id="allowCopying" checked>
-                                    Allow Copying Text
-                                </label>
-                                <label>
-                                    <input type="checkbox" id="allowAnnotating" checked>
-                                    Allow Annotations
-                                </label>
-                            </div>
-                        </div>
-
-                        <button id="encryptButton" class="primary-button">
-                            <i class="fas fa-lock"></i> Encrypt PDF
-                        </button>
                     </div>
 
-                    <div id="progressContainer" class="progress-container" style="display: none;">
-                        <div class="progress-bar">
-                            <div class="progress" id="progressBar"></div>
-                        </div>
-                        <p id="progressText">Processing... 0%</p>
+                    <button id="encryptButton" class="action-button">
+                        <i class="fas fa-lock"></i> Encrypt PDF
+                    </button>
+                </div>
+
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-bar">
+                        <div class="progress" id="progressBar"></div>
                     </div>
+                    <p id="progressText">Processing... 0%</p>
                 </div>
             </section>
 
@@ -123,6 +313,7 @@
         </div>
     </footer>
 
+    <script src="js/nav.js"></script>
     <script src="js/encrypt.js"></script>
 </body>
 </html>

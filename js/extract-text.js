@@ -37,12 +37,19 @@ function parsePageRanges(input, totalPages) {
 // Load PDF file
 async function loadPDF(file) {
     try {
+        showProgress(true);
+        updateProgress(0);
         const arrayBuffer = await file.arrayBuffer();
         pdfDocument = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
         showMessage(`PDF loaded successfully. Pages: ${pdfDocument.numPages}`, 'success');
         document.getElementById('extract-btn').disabled = false;
+        
+        // Automatically extract text from all pages
+        await extractText();
     } catch (error) {
         showMessage('Error loading PDF: ' + error.message, 'error');
+    } finally {
+        showProgress(false);
     }
 }
 

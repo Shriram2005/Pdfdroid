@@ -1,0 +1,150 @@
+/* Terms and Conditions Page Styles */
+.legal-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.legal-section h1 {
+    color: var(--secondary-color);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.legal-section h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    border-radius: 3px;
+}
+
+.last-updated {
+    color: #666;
+    font-size: 0.95rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    font-style: italic;
+}
+
+.legal-content {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.legal-content section {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.legal-content section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.legal-content h2 {
+    color: var(--secondary-color);
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.legal-content h2::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 24px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.legal-content h3 {
+    color: var(--secondary-color);
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 1.5rem 0 1rem;
+}
+
+.legal-content p {
+    color: #444;
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+}
+
+.legal-content ul {
+    list-style: none;
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.legal-content li {
+    color: #444;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 1.8rem;
+}
+
+.legal-content li::before {
+    content: '•';
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    position: absolute;
+    left: 0;
+    top: -0.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .legal-section {
+        padding: 2rem;
+        margin: 1rem;
+    }
+
+    .legal-content {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .legal-section {
+        padding: 1.5rem;
+    }
+
+    .legal-section h1 {
+        font-size: 2rem;
+    }
+
+    .legal-content {
+        padding: 1.5rem;
+    }
+
+    .legal-content section {
+        padding: 1.5rem;
+    }
+
+    .legal-content h2 {
+        font-size: 1.4rem;
+    }
+}

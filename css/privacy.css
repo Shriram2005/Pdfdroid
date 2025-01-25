@@ -1,0 +1,190 @@
+/* Privacy Policy Page Styles */
+.legal-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+}
+
+.legal-section h1 {
+    color: var(--secondary-color);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    background: linear-gradient(120deg, var(--secondary-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.last-updated {
+    color: #666;
+    font-size: 0.95rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.legal-content {
+    display: grid;
+    gap: 2.5rem;
+}
+
+.legal-content section {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(74, 144, 226, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.legal-content section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+    opacity: 0.7;
+}
+
+.legal-content section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+    border-color: rgba(74, 144, 226, 0.2);
+}
+
+.legal-content h2 {
+    color: var(--secondary-color);
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.legal-content h2::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: var(--primary-color);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+}
+
+.legal-content h3 {
+    color: var(--secondary-color);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.8rem 0 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid rgba(74, 144, 226, 0.1);
+}
+
+.legal-content p {
+    color: #444;
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+}
+
+.legal-content ul {
+    margin: 1.5rem 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.legal-content li {
+    color: #444;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.legal-content li::before {
+    content: '✓';
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Cards for Key Points */
+.privacy-key-points {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.privacy-card {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(74, 144, 226, 0.1);
+    transition: all 0.3s ease;
+}
+
+.privacy-card:hover {
+    background: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.privacy-card h4 {
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.privacy-card p {
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .legal-section {
+        padding: 2rem;
+        margin: 1rem;
+    }
+
+    .legal-content section {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .legal-section {
+        padding: 1.5rem;
+    }
+
+    .legal-section h1 {
+        font-size: 2rem;
+    }
+
+    .legal-content section {
+        padding: 1.5rem;
+    }
+
+    .legal-content h2 {
+        font-size: 1.4rem;
+    }
+
+    .privacy-card {
+        padding: 1.25rem;
+    }
+}
