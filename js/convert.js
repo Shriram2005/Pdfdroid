@@ -228,8 +228,102 @@ async function convertPDFToWord(file) {
 
 // Convert Word to PDF
 async function convertWordToPDF(file) {
-    // This is a placeholder - actual Word to PDF conversion requires server-side processing
-    showMessage('Word to PDF conversion requires server-side processing. This is a client-side only demo.', 'error');
+    try {
+        showProgress(true);
+        updateProgress(10);
+
+        // Create a temporary container for the Word content
+        const container = document.createElement('div');
+        container.className = 'word-container';
+        container.style.width = '210mm'; // A4 width
+        container.style.margin = '0';
+        container.style.padding = '20mm'; // A4 margins
+        document.body.appendChild(container);
+
+        // Read the Word file
+        const arrayBuffer = await file.arrayBuffer();
+        updateProgress(30);
+
+        // Convert Word to HTML with style preservation options
+        const result = await mammoth.convertToHtml(
+            { arrayBuffer },
+            {
+                styleMap: [
+                    "p[style-name='Heading 1'] => h1:fresh",
+                    "p[style-name='Heading 2'] => h2:fresh",
+                    "p[style-name='Heading 3'] => h3:fresh",
+                    "p[style-name='Heading 4'] => h4:fresh",
+                    "p[style-name='Heading 5'] => h5:fresh",
+                    "p[style-name='Heading 6'] => h6:fresh",
+                    "r[style-name='Strong'] => strong",
+                    "r[style-name='Emphasis'] => em",
+                    "p[style-name='List Paragraph'] => p.list-paragraph:fresh"
+                ],
+                preserveStyles: true,
+                includeDefaultStyleMap: true,
+                ignoreEmptyParagraphs: false
+            }
+        );
+
+        container.innerHTML = result.value;
+        updateProgress(50);
+
+        // Configure PDF options for high quality
+        const opt = {
+            margin: [0, 0, 0, 0],
+            filename: file.name.replace(/\.[^/.]+$/, '') + '.pdf',
+            image: { type: 'jpeg', quality: 1.0 },
+            html2canvas: {
+                scale: 4, // Increase scale for better quality
+                useCORS: true,
+                letterRendering: true,
+                backgroundColor: '#ffffff',
+                logging: false,
+                onclone: function(clonedDoc) {
+                    const clonedContainer = clonedDoc.querySelector('.word-container');
+                    if (clonedContainer) {
+                        clonedContainer.style.transform = 'none';
+                    }
+                }
+            },
+            jsPDF: {
+                unit: 'mm',
+                format: 'a4',
+                orientation: 'portrait',
+                compress: false // Disable compression for better quality
+            }
+        };
+
+        updateProgress(70);
+
+        // Generate PDF with high quality settings
+        const pdf = await html2pdf()
+            .set(opt)
+            .from(container)
+            .toPdf()
+            .output('blob');
+
+        // Clean up
+        document.body.removeChild(container);
+        updateProgress(90);
+
+        // Trigger download
+        downloadFile(pdf, opt.filename, 'application/pdf');
+        updateProgress(100);
+
+        return true;
+    } catch (error) {
+        console.error('Error in Word to PDF conversion:', error);
+        throw new Error('Failed to convert Word to PDF: ' + error.message);
+    } finally {
+        showProgress(false);
+    }
+}
+
+// Convert Excel to PDF
+async function convertExcelToPDF(file) {
+    // This is a placeholder - actual Excel to PDF conversion requires server-side processing
+    showMessage('Excel to PDF conversion requires server-side processing. This is a client-side only demo.', 'error');
     throw new Error('Server-side processing required');
 }
 
@@ -272,13 +366,6 @@ async function convertPDFToExcel(file) {
     return XLSX.write(workbook, { type: 'array' });
 }
 
-// Convert Excel to PDF
-async function convertExcelToPDF(file) {
-    // This is a placeholder - actual Excel to PDF conversion requires server-side processing
-    showMessage('Excel to PDF conversion requires server-side processing. This is a client-side only demo.', 'error');
-    throw new Error('Server-side processing required');
-}
-
 // Main conversion function
 async function convertFile() {
     if (!currentFile) {
@@ -315,7 +402,6 @@ async function convertFile() {
                 
             case 'word-to-pdf':
                 result = await convertWordToPDF(currentFile);
-                downloadFile(result, 'converted.pdf', 'application/pdf');
                 break;
                 
             case 'pdf-to-excel':

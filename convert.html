@@ -7,7 +7,7 @@
     <title>Convert Files - PDF Toolkit</title>
     <link rel="stylesheet" href="css/styles.css">
     <!-- PDF.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
     <!-- PDF-LIB -->
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <!-- SheetJS -->
@@ -96,7 +96,44 @@
             font-weight: bold;
             padding: 0 10px;
         }
+
+        /* Word document container styles */
+        .word-container {
+            background: white;
+            padding: 50px;
+            font-family: 'Calibri', 'Arial', sans-serif;
+        }
+        .word-container table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .word-container td, .word-container th {
+            border: 1px solid #000;
+            padding: 8px;
+        }
+        .word-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .word-container p {
+            margin: 0 0 10px 0;
+            line-height: 1.15;
+        }
+        .word-container h1, .word-container h2, .word-container h3, 
+        .word-container h4, .word-container h5, .word-container h6 {
+            font-family: 'Calibri', 'Arial', sans-serif;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+        .word-container ul, .word-container ol {
+            margin: 0 0 10px 0;
+            padding-left: 40px;
+        }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
@@ -127,12 +164,12 @@
                         <select id="conversion-type">
                             <option value="pdf-to-image">PDF to Image</option>
                             <option value="image-to-pdf">Image to PDF</option>
-                            <option value="pdf-to-word">PDF to Word</option>
+                            <!-- <option value="pdf-to-word">PDF to Word</option> -->
                             <option value="word-to-pdf">Word to PDF</option>
-                            <option value="pdf-to-excel">PDF to Excel</option>
+                            <!-- <option value="pdf-to-excel">PDF to Excel</option>
                             <option value="excel-to-pdf">Excel to PDF</option>
                             <option value="pdf-to-ppt">PDF to PowerPoint</option>
-                            <option value="ppt-to-pdf">PowerPoint to PDF</option>
+                            <option value="ppt-to-pdf">PowerPoint to PDF</option> -->
                         </select>
                     </div>
                 </div>
