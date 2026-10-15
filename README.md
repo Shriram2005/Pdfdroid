@@ -2,6 +2,16 @@
 
 PdfDroid is a comprehensive, browser-based PDF manipulation toolkit that offers a wide range of PDF operations without requiring any software installation. Built with security and ease of use in mind, it provides essential PDF tools completely free of charge.
 
+## 📱 Screenshots
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/013e3c6d-cf79-4cd8-8d87-339dca1f1d76" width="450" alt="PdfDroid screenshot 1" />
+  <br />
+  <img src="https://github.com/user-attachments/assets/ba9307ec-2024-4324-bd6e-817e4b46a131" width="450" alt="PdfDroid screenshot 2" />
+  <br />
+  <img src="https://github.com/user-attachments/assets/0c6a2961-d30a-4bd1-91db-e1c71d660ce4" width="450" alt="PdfDroid screenshot 3" />
+</div>
+
 ## 🚀 Features
 
 - **PDF Compression**: Reduce PDF file sizes while maintaining quality
